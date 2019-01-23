@@ -13,19 +13,58 @@ public class Trieuse {
 
     private static class NomOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-           
+        	int ordre = 0;
+        	int longueurX = x.getNom().length();
+        	int longueurY = y.getNom().length();
+        	int longueur = 0;
+        	if(longueurX <= longueurY) {
+        		longueur = longueurX;
+        	} else {
+        		longueur = longueurY;
+        	}
+        	char[] arrayX = x.getNom().toCharArray();
+        	char[] arrayY = y.getNom().toCharArray();
+        	for(int i = 0; i < longueur; i++) {
+        		if(arrayX[i] < arrayY[i]) {
+        			ordre = -1;
+        		} else if(arrayX[i] == arrayY[i]){
+        			ordre = 0;
+        		} else {
+        			ordre = 1;
+        		}
+        		if(ordre == 0) {
+        			i = longueur;
+        		}
+        	}
+        	return ordre;
         }
     }
 
 
     private static class SectionOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-             // completer
+             int ordre = 0;
+             if(x.getSection() < y.getSection()) {
+            	 ordre = -1;
+             } else if (x.getSection() == y.getSection()) {
+            	 ordre = 0;
+             } else {
+            	 ordre = 1;
+             }
+             return ordre;
         }
     }
-
+    
+    private static String [] parNom(Etudiant[] etudiants) {
+    	int nbrEtudiants = etudiants.length;
+    	String [] nomsEnOrdre = new String [nbrEtudiants];
+    	for(int i = 0; i < nbrEtudiants; i++) {
+    		NomOrdre.compare(etudiants[i], etudiants[i+1]);
+    	}
+    	return nomsEnOrdre;
+    }
                 
-          // Ajouter des méthodes  ParNom() et ParSection()
+          // Ajouter des méthodes   et ParSection()
 
                //completer 
 
