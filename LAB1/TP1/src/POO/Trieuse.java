@@ -13,7 +13,7 @@ public class Trieuse {
 
     private static class NomOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-           // completer
+           
         }
     }
 
