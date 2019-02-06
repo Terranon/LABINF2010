@@ -17,7 +17,7 @@ public class Trieuse {
         	int longueurX = x.getNom().length();
         	int longueurY = y.getNom().length();
         	int longueur = 0;
-        	if(longueurX <= longueurY) {
+        	if(longueurX <= longueurY) { // on veut la plus petite longueur de charactere
         		longueur = longueurX;
         	} else {
         		longueur = longueurY;
@@ -32,7 +32,7 @@ public class Trieuse {
         		} else {
         			ordre = 1;
         		}
-        		if(ordre == 0) {
+        		if(ordre != 0) { // on sort de la loop plus vite si on trouve un ordre plus tot
         			i = longueur;
         		}
         	}
@@ -58,15 +58,46 @@ public class Trieuse {
     private static String [] parNom(Etudiant[] etudiants) {
     	int nbrEtudiants = etudiants.length;
     	String [] nomsEnOrdre = new String [nbrEtudiants];
-    	for(int i = 0; i < nbrEtudiants; i++) {
-    		NomOrdre.compare(etudiants[i], etudiants[i+1]);
+    	int min;
+    	Etudiant temp = new Etudiant("","",0);
+    	for(int i = 0; i < (nbrEtudiants - 1); i++) {
+    		min = i;
+    		for(int j = i+1; j < nbrEtudiants; j++) {
+    			if(Par_nom.compare(etudiants[min], etudiants[j]) > 0) {
+    				min = j;
+    			}
+    		}
+    		temp = etudiants[i];
+    		etudiants[i] = etudiants[min];
+    		etudiants[min] = temp;
+    	}
+    	for(int k = 0; k < nbrEtudiants; k++) {
+    		nomsEnOrdre[k] = etudiants[k].getNom();
     	}
     	return nomsEnOrdre;
     }
-                
-          // Ajouter des méthodes   et ParSection()
-
-               //completer 
+    
+    private static String [] parSection(Etudiant[] etudiants) {
+    	int nbrEtudiants = etudiants.length;
+    	String [] nomsEnOrdre = new String [nbrEtudiants];
+    	int min;
+    	Etudiant temp = new Etudiant("","",0);
+    	for(int i = 0; i < (nbrEtudiants - 1); i++) {
+    		min = i;
+    		for(int j = i+1; j < nbrEtudiants; j++) {
+    			if(Par_section.compare(etudiants[min], etudiants[j]) > 0) {
+    				min = j;
+    			}
+    		}
+    		temp = etudiants[i];
+    		etudiants[i] = etudiants[min];
+    		etudiants[min] = temp;
+    	}
+    	for(int k = 0; k < nbrEtudiants; k++) {
+    		nomsEnOrdre[k] = etudiants[k].getNom();
+    	}
+    	return nomsEnOrdre;
+    }
 
    
     public static void main(String[] args) {
@@ -78,7 +109,7 @@ public class Trieuse {
         e.AjouterNote("INF2010", "Structures de données et algorithmes", 4);		
         e.AjouterNote("LOG2810", "Structures discrètes", 5);
         e.AjouterNote("INF2610", "Noyau d'un système d'exploitation", 3);
-	System.out.println(e.NoteMoyenne());
+        System.out.println(e.NoteMoyenne());
 
         Etudiant john     = new Etudiant("1797453","john",  2);
         Etudiant Caroline = new Etudiant("1897053","Caroline",    1);
@@ -90,20 +121,17 @@ public class Trieuse {
         Etudiant[] etudiants = {
             john, Caroline, Karl, Ahmed, Sam
         };
-
-         // Completer le pseudo-code pour trie les etudiants par nom -section 
+        String [] etudiantsTrie = parNom(etudiants);
         System.out.println("Par le nom ");
-        System.out.println("----------");
-               // Completer
-        System.out.println("----------");
-        
+        for(int i = 0; i < etudiants.length; i++) {
+        	System.out.println(etudiantsTrie[i]);
+        }
 
-
-
+        etudiantsTrie = parSection(etudiants);
         System.out.println("Par section");
-        System.out.println("----------");
-                 // Completer
-        System.out.println("----------");
+        for(int i = 0; i < etudiants.length; i++) {
+        	System.out.println(etudiantsTrie[i]);
+        }
 
        
         Etudiant carlos = new Etudiant("1698853","carlos", 3);

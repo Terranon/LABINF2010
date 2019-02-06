@@ -7,38 +7,42 @@ public class Article {
 
 
     public Article(String NumProduit, String nom){
-        //completer
+        this.NumProduit = NumProduit;
+        this.nom = nom;
 	}
 	
 	public Article(String np, String nom, double prix){		
-		//completer
+		this.NumProduit = np;
+		this.nom = nom;
+		this.Prix_net = prix;
 	}
 
 	public String getNumProduit() {
-		//completer
+		return this.NumProduit;
 	}	
 	public String getNom() {
-		//completer
+		return this.nom;
 	}
 	public void setNom(String nom) {
-		//completer
+		this.nom = nom;
 	}
 	public double getPrixNet() {
-		//completer
+		return this.Prix_net;
 	}
 	public void setPrixNet(double prix_net) {
-		//completer
+		this.Prix_net = prix_net;
 	}
 	public double getVAT(){
-		//completer
+		return this.Prix_net;
 	}
 	public double getPrix(int count){
-		//completer
+		return this.Prix_net;
 	}
 	public String getArticleType(){
-		//completer
+		return "Article sans type";
 	}
 	public String toString() {
-		//completer
+		String prixEnString = Double.toString(this.Prix_net);
+		return (this.NumProduit + this.nom + prixEnString);
 	}
 }
