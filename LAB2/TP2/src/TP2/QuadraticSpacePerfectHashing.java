@@ -95,6 +95,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
    {
       a = generator.nextInt(p) + 1;
       b = generator.nextInt(p) + 1;
+      items = (AnyType[]) new Object[m];
       for(int i = 0; i < array.size(); i++) {
     	  int pos = findPos(array.get(i));
     	  if (items[pos] != null) {
