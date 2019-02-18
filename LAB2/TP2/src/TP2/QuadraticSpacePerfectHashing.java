@@ -41,18 +41,12 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private int findPos(AnyType x){
 	  
 	  int pos = (a*(Integer) x + b) % p % m;
-	  if(0 <= pos) {
-		  if(pos < m) {
-			  return pos;
-		  }
-		  else {
-			  System.out.println( "position out of bounds: greater than m");
-			  return -1;
-		  }
+	  if(pos < m) {
+	  	  return pos;
 	  }
 	  else {
-		  System.out.println( "position out of bounds: less than zero");
-	      return -1;
+		  System.out.println( "position out of bounds: greater than m");
+		  return -1;
 	  }
    }
 	/*
