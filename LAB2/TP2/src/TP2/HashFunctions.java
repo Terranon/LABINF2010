@@ -94,12 +94,14 @@ public class HashFunctions
       Random generator = new Random( System.nanoTime() );
       ArrayList<Integer> al = new ArrayList<Integer>();
       int randomInt;
-      int sizeOfAl = 0;
-      while(sizeOfAl < length) {
+      // Tant que la taille de al est inferieur a la longueur specifier
+      while(al.size() < length) {
+    	  // generer un Integer alleatoire.
     	  randomInt = generator.nextInt();
+    	  // Si l'Integer n'existe pas deja dans al
     	  if(!al.contains(randomInt)) {
+    		  // rajouter l'integer dans al.
     		  al.add(randomInt);
-    		  sizeOfAl++;
     	  }
       }
       

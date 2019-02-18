@@ -38,11 +38,6 @@ public class QuadraticSpacePerfectHashing<AnyType>
       items = null;
    }
    
-   /* nom: findPos();
-    * description: Retourne la position de l'element en memoire selon la formule
-    * 			   de l'equation 1.
-    */
-   
    private int findPos(AnyType x){
 	  //selon l'equation 1
 	  int pos = (a*(Integer) x + b) % p % m;
@@ -89,18 +84,24 @@ public class QuadraticSpacePerfectHashing<AnyType>
    @SuppressWarnings("unchecked")
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
-      //genere des valeurs, ajoute + 1 pour s'assurer de ne pas avoir 0 pour respecter l'interalle
+      //genere des valeurs, ajoute + 1 pour s'assurer de ne pas avoir 0 pour respecter l'intervalle
 	  a = generator.nextInt(p) + 1;
       b = generator.nextInt(p) + 1;
+      //assigner items comme array de taille m
       items = (AnyType[]) new Object[m];
+      //inserer la valeur dans array a la position i
       for(int i = 0; i < array.size(); i++) {
     	  int pos = findPos(array.get(i));
+    	  //Si une collision existe, renvoie true.
     	  if (items[pos] != null) {
     		  return true;
-    	  } else {
+    	  } 
+    	  //Sinon inserer l'item
+    	  else {
     		  items[pos] = array.get(i);
     	  }
       }
+      //aucune collision
       return false;
    }
    
