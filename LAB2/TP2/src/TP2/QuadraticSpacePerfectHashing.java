@@ -37,23 +37,24 @@ public class QuadraticSpacePerfectHashing<AnyType>
       a = b = m = n = 0; 
       items = null;
    }
-
+   
+   /* nom: findPos();
+    * description: Retourne la position de l'element en memoire selon la formule
+    * 			   de l'equation 1.
+    */
+   
    private int findPos(AnyType x){
-	  
+	  //selon l'equation 1
 	  int pos = (a*(Integer) x + b) % p % m;
-	  if(pos < m) {
-	  	  return pos;
+	  //respect de l'intervalle
+	  if(pos < 0) {
+		  pos += m;
+		  
+	  } else if (pos > m) {
+		  pos -= m;
 	  }
-	  else {
-		  System.out.println( "position out of bounds: greater than m");
-		  return -1;
-	  }
+	  return pos;
    }
-	/*
-	 * private static boolean isPrime(int n) { if(n == 2 || n == 3) { return true; }
-	 * if(n == 1 || n % 2 == 0) { return false; } for(int i = 3 ; i * i <= n; i +=2)
-	 * { if (n% i == 0) { return false; } } return true; }
-	 */
 
    public boolean contains(AnyType x )
    {
@@ -76,18 +77,20 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
       if(n == 1)
       {
+    	 //allocation d'un espace
          items = (AnyType[]) new Object[m];
          items[0]	= array.get(0);
          return;
       }
-
+      
       while( unsuccessfulMemoryAllocation( array ) );
    }
 
    @SuppressWarnings("unchecked")
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
-      a = generator.nextInt(p) + 1;
+      //genere des valeurs, ajoute + 1 pour s'assurer de ne pas avoir 0 pour respecter l'interalle
+	  a = generator.nextInt(p) + 1;
       b = generator.nextInt(p) + 1;
       items = (AnyType[]) new Object[m];
       for(int i = 0; i < array.size(); i++) {

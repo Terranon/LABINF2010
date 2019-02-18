@@ -41,14 +41,13 @@ public class LinearSpacePerfectHashing<AnyType>
    private int findPos(AnyType x)
    {
      int pos = (a*(Integer) x + b) % p % n;
-	 
-	  if(pos < n) {
-		  return pos;
-	  }
-	  else {
-		  System.out.println( "position out of bounds: greater than n");
-		  return -1;
-	  }
+	 if(pos < 0) {
+		  pos += n;
+		  
+	 } else if (pos > n) {
+	 	 pos -= n;
+	 }
+	 return pos;
    }
    
    public boolean contains(AnyType x)

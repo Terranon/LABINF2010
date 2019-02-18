@@ -93,7 +93,16 @@ public class HashFunctions
    {
       Random generator = new Random( System.nanoTime() );
       ArrayList<Integer> al = new ArrayList<Integer>();
-      // Completer
+      int randomInt;
+      int sizeOfAl = 0;
+      while(sizeOfAl < length) {
+    	  randomInt = generator.nextInt();
+    	  if(!al.contains(randomInt)) {
+    		  al.add(randomInt);
+    		  sizeOfAl++;
+    	  }
+      }
+      
       return al;
    }
 }
