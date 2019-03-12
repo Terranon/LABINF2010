@@ -36,7 +36,7 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // TODO: placer dans une liste les items de l'arbre en ordre
     // O(n)
     public List<BinaryNode<T>> getItemsInOrder() {
-    	List<BinaryNode<T>> listeEnOrdre = new ArrayList<BinaryNode<T>>();
+    	List<BinaryNode<T>> listeEnOrdre = new ArrayList<>();
     	root.fillListInOrder(listeEnOrdre);
     	return listeEnOrdre;
     }
@@ -44,7 +44,7 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // TODO: retourner la liste d'item en String selon le bon format
     // O(n)
     public String toStringInOrder() {
-        List<BinaryNode<T>> treeEnListe = new ArrayList<BinaryNode<T>>();
+        List<BinaryNode<T>> treeEnListe = new ArrayList<>();
         treeEnListe = getItemsInOrder();
         String stringToBeReturned = "[";
         for(int i = 0; i < treeEnListe.size(); i++) {

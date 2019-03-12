@@ -33,30 +33,30 @@ public class BinaryNode<T extends Comparable<? super T> > {
     public void insert(T item) {
     	int compareResult = item.compareTo(data);
     	// Insérer si position courante est une feuille
-    	if( right == null && left == null) {
-    		BinaryNode<T> nouvelleNode = new BinaryNode<T>(item);
-    		if(compareResult <= 0) {
-    			left = nouvelleNode;
+    	if(compareResult <= 0) {
+    		if(left == null) {
+    			left =  new BinaryNode<T>(item);
     		}
     		else {
-    			right = nouvelleNode;
+    			left.insert(item);
     		}
     	}
-    	// Sinon
     	else {
-    		if(compareResult <= 0 )
-    	    	this.left.insert(item);
-    		else
-    			this.right.insert(item);
+    		if(right == null) {
+    			right =  new BinaryNode<T>(item);
+    		}
+    		else {
+    			right.insert(item);
+    		}
     	}
     }
 
-    private int compareTo(T data2) {
-		int dataDeThis = (int) data;
-		int dataEnParametre = (int) data2;
-		int resultat = (dataDeThis - dataEnParametre);
-		return resultat;
-	}
+//    private int compareTo(T data2) {
+//		int dataDeThis = (int) data;
+//		int dataEnParametre = (int) data2;
+//		int resultat = (dataDeThis - dataEnParametre);
+//		return resultat;
+//	}
 
 	// TODO: est-ce que l'item fais partie du noeuds courant
     // O(log(n))
@@ -81,17 +81,23 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: on retourne la maximale de l'arbre
     // O(n)
     public int getHeight() {
-    	int height = 0;
+    	int lefth = -1;
+    	int righth = -1;
     	if(left == null && right == null) {
-    		return height - 1;
+    		return (-1);
     	}
-    	int lefth = left.getHeight();
-    	int righth = right.getHeight();
+    	if(left != null) {
+    		lefth = left.getHeight();
+    	}
+    	if(right != null) {
+    		righth = right.getHeight();
+    	}
+    	
     	if( lefth > righth) {
-    		return lefth + 1;
+    		return ++lefth;
     	}
     	else {
-    		return righth + 1;
+    		return ++righth;
     	}
     }
 

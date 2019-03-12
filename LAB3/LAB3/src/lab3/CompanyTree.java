@@ -7,7 +7,7 @@ public class CompanyTree {
 
     // TODO: initialisation
     public CompanyTree(CompanyNode item) {
-
+    	
     }
 
     // TODO: une compagnie mère achete une autre compagnie
