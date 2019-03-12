@@ -35,21 +35,27 @@ public class CompanyNode implements Comparable<CompanyNode> {
     	}
     }
 
-    // TODO: on retourne le montant en banque de la compagnie
+    private CompanyNode getWorstChild() {
+    	List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
+		liste = childs.getItemsInOrder();
+		return liste.get(0).getData();
+	}
+
+	// TODO: on retourne le montant en banque de la compagnie
     // O(1)
     public Integer getMoney() {
-    	if(childs == null) {
+//    	if(childs == null) {
     		return money;
-    	}
-    	else {
-    		List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
-    		liste = childs.getItemsInOrder();
-    		int nouvelleValeurDeMoney = 0;
-    		for(int i = 0; i < liste.size(); i++) {
-    			nouvelleValeurDeMoney += liste.get(i).getData().money;
-    		}
-    		return nouvelleValeurDeMoney;
-    	}
+//    	}
+//    	else {
+//    		List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
+//    		liste = childs.getItemsInOrder();
+//    		int nouvelleValeurDeMoney = 0;
+//    		for(int i = 0; i < liste.size(); i++) {
+//    			nouvelleValeurDeMoney += liste.get(i).getData().money;
+//    		}
+//    		return nouvelleValeurDeMoney;
+//    	}
     }
 
     // TODO: on rempli le builder de la compagnie et de ses enfants avec le format
@@ -64,7 +70,7 @@ public class CompanyNode implements Comparable<CompanyNode> {
     	builder.append("\n");
     	if(childs != null) {
     		List<BinaryNode<CompanyNode>> liste = childs.getItemsInOrder();
-    		for(int i = 0; i < liste.size(); i++) {
+    		for(int i = liste.size() - 1 ; i >= 0; i--) {
     			int nbrDePrefix = liste.get(i).getHeight();
     			for(int j= 0; j < nbrDePrefix; j++) {
     				builder.append(prefix);
@@ -78,7 +84,15 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // TODO: on override le comparateur pour defenir l'ordre
     @Override
     public int compareTo(CompanyNode item) {
-
-        return 0;
+    	int dataEnParametre = item.getMoney();
+    	if(money > dataEnParametre) {
+    		return 1;
+    	} 
+    	else if(money < dataEnParametre) {
+    		return (-1);
+    	}
+    	else {
+    		return 0;
+    	}
     }
 }
