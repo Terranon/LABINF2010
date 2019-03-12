@@ -17,7 +17,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: on retourne la donnee voulue
     // O(1)
     public T getData() {
-        return this.data;
+        return data;
     }
     
     public BinaryNode<T> getLeft(){
@@ -31,7 +31,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: on ajoute une nouvelle donnee au bon endroit
     // O(log(n))
     public void insert(T item) {
-    	int compareResult = item.compareTo(this.data);
+    	int compareResult = item.compareTo(data);
     	// Insérer si position courante est une feuille
     	if( right == null && left == null) {
     		BinaryNode<T> nouvelleNode = new BinaryNode<T>(item);
@@ -52,7 +52,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
     }
 
     private int compareTo(T data2) {
-		int dataDeThis = (int) this.data;
+		int dataDeThis = (int) data;
 		int dataEnParametre = (int) data2;
 		int resultat = (dataDeThis - dataEnParametre);
 		return resultat;
@@ -61,7 +61,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
 	// TODO: est-ce que l'item fais partie du noeuds courant
     // O(log(n))
     public boolean contains(T item) {
-    	int compareResult = item.compareTo(this.data);
+    	int compareResult = item.compareTo(data);
         if(compareResult == 0) {
         	return true;
         }
@@ -99,17 +99,12 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // de manière que le plus petit item sera le premier inseré
     // O(n)
     public void fillListInOrder(List<BinaryNode<T>> result) {
-    	BinaryNode<T> plusPetit = new BinaryNode<T>(result.get(0).getData());
-    	int compareResult = 0;
-    	for(int i = 0; i < result.size(); i++) {
-    		compareResult = result.get(i).getData().compareTo(plusPetit.getData());
-    		if(compareResult < 0) {
-    			plusPetit = result.get(i);
-    		}
+    	if (left != null) {
+    		left.fillListInOrder(result);
     	}
-    	this.insert(plusPetit.getData());
-    	// TODO: remove de la list "plusPetit"
-    	result.remove(plusPetit);
-    	fillListInOrder(result);
+    	result.add(this);
+    	if(right != null) {
+    		right.fillListInOrder(result);
+    	}
     }
 }

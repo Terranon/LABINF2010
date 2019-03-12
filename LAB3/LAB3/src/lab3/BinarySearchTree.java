@@ -37,26 +37,23 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // O(n)
     public List<BinaryNode<T>> getItemsInOrder() {
     	List<BinaryNode<T>> listeEnOrdre = new ArrayList<BinaryNode<T>>();
-    	BinaryNode<T> parentDUneNode = this.root;
-        BinaryNode<T> uneNode = this.root;
-        while(uneNode != null) {
-        	// la node completement a gauche dois etre la plus petite node
-        	while(uneNode.getLeft() != null) {
-        		parentDUneNode = uneNode;
-            	uneNode = uneNode.getLeft();
-            }
-            listeEnOrdre.add(uneNode);
-            listeEnOrdre.add(parentDUneNode);
-            if(parentDUneNode.getRight() != null) {
-            	parentDUneNode = parentDUneNode.getRight();
-            	
-            }
-        }
+    	root.fillListInOrder(listeEnOrdre);
+    	return listeEnOrdre;
     }
 
     // TODO: retourner la liste d'item en String selon le bon format
     // O(n)
     public String toStringInOrder() {
-        return "[1, 2, 3]";
+        List<BinaryNode<T>> treeEnListe = new ArrayList<BinaryNode<T>>();
+        treeEnListe = getItemsInOrder();
+        String stringToBeReturned = "[";
+        for(int i = 0; i < treeEnListe.size(); i++) {
+        	stringToBeReturned += treeEnListe.get(i).getData();
+        	if(i != (treeEnListe.size() -1)) {
+        		stringToBeReturned += ", ";
+        	}
+        }
+        stringToBeReturned += "]";
+        return stringToBeReturned;
     }
 }
