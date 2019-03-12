@@ -19,6 +19,14 @@ public class BinaryNode<T extends Comparable<? super T> > {
     public T getData() {
         return this.data;
     }
+    
+    public BinaryNode<T> getLeft(){
+    	return left;
+    }
+    
+    public BinaryNode<T> getRight(){
+    	return right;
+    }
 
     // TODO: on ajoute une nouvelle donnee au bon endroit
     // O(log(n))
