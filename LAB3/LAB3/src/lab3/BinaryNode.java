@@ -51,13 +51,6 @@ public class BinaryNode<T extends Comparable<? super T> > {
     	}
     }
 
-//    private int compareTo(T data2) {
-//		int dataDeThis = (int) data;
-//		int dataEnParametre = (int) data2;
-//		int resultat = (dataDeThis - dataEnParametre);
-//		return resultat;
-//	}
-
 	// TODO: est-ce que l'item fais partie du noeuds courant
     // O(log(n))
     public boolean contains(T item) {

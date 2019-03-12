@@ -102,3 +102,4 @@ public class TestCompany {
         TestHelper.printTest(tree.getTreeInOrder().equals(expected));
     }
 }
+

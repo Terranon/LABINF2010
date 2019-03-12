@@ -26,36 +26,32 @@ public class CompanyNode implements Comparable<CompanyNode> {
     		childs.insert(item);
     	}
     	if(worstChild == null) {
-    		worstChild = item.getWorstChild();
+    		if(item.worstChild != null) {
+    			worstChild = item.worstChild;
+    		}
+    		else {
+    			worstChild = item;
+    		}
     	}
     	else {
-    		if(worstChild.getMoney() > item.getWorstChild().getMoney()) {
-    			worstChild = item.getWorstChild();
+    		if(item.worstChild != null) {
+    			if(worstChild.compareTo(item.worstChild) == 1) {
+        			worstChild = item.worstChild;
+        		}
     		}
     	}
     }
 
-    private CompanyNode getWorstChild() {
-    	List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
-		liste = childs.getItemsInOrder();
-		return liste.get(0).getData();
-	}
+//    private CompanyNode getWorstChild() {
+//    	List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
+//		liste = childs.getItemsInOrder();
+//		return liste.get(0).getData();
+//	}
 
 	// TODO: on retourne le montant en banque de la compagnie
     // O(1)
     public Integer getMoney() {
-//    	if(childs == null) {
-    		return money;
-//    	}
-//    	else {
-//    		List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
-//    		liste = childs.getItemsInOrder();
-//    		int nouvelleValeurDeMoney = 0;
-//    		for(int i = 0; i < liste.size(); i++) {
-//    			nouvelleValeurDeMoney += liste.get(i).getData().money;
-//    		}
-//    		return nouvelleValeurDeMoney;
-//    	}
+    	return money;
     }
 
     // TODO: on rempli le builder de la compagnie et de ses enfants avec le format
@@ -89,7 +85,7 @@ public class CompanyNode implements Comparable<CompanyNode> {
     		return 1;
     	} 
     	else if(money < dataEnParametre) {
-    		return (-1);
+    		return -1;
     	}
     	else {
     		return 0;
