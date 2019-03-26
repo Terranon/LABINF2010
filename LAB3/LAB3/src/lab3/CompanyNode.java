@@ -42,12 +42,6 @@ public class CompanyNode implements Comparable<CompanyNode> {
     	}
     }
 
-//    private CompanyNode getWorstChild() {
-//    	List<BinaryNode<CompanyNode>> liste = new ArrayList<>();
-//		liste = childs.getItemsInOrder();
-//		return liste.get(0).getData();
-//	}
-
 	// TODO: on retourne le montant en banque de la compagnie
     // O(1)
     public Integer getMoney() {
