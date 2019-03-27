@@ -70,6 +70,12 @@ public class Main
       /*
        * Ajouter appels pour repondre a la question
        **/
+      testOfferMin(items);
+      testOfferMax(items);
+      testPollMin(items);
+      testPollMax(items);
+      //testOfferIteratorNext(items);
+      //testIteratorOutOfBounds(items);
    }
 
    private static <AnyType> 
@@ -84,5 +90,66 @@ public class Main
       }
 
       return outputString.substring(0,outputString.length()-2);
+   }
+   private static void testOfferMin(Integer[] items) {
+	   System.out.print("Test pour : offer() quand min=true:\n");
+	   int resultatVoulu = -100;
+	   BinaryHeap<Integer> heap = new BinaryHeap<Integer>(items, true);
+	   heap.offer(resultatVoulu);
+	   if(resultatVoulu == heap.poll())
+		   System.out.print("\tSucces!\n");
+	   else
+		   System.out.print("\tEchec :(\n");
+   }
+   private static void testOfferMax(Integer[] items) {
+	   System.out.print("Test pour : offer() quand min=false:\n");
+	   int resultatVoulu = 1000;
+	   BinaryHeap<Integer> heap = new BinaryHeap<Integer>(items, false);
+	   heap.offer(resultatVoulu);
+	   if(resultatVoulu == heap.poll())
+		   System.out.print("\tSucces!\n");
+	   else
+		   System.out.print("\tEchec :(\n");
+   }
+   private static void testPollMin(Integer[] items) {
+	   System.out.print("Test pour : poll() quand min=true:\n");
+	   int resultatVoulu = items[1];
+	   BinaryHeap<Integer> heap = new BinaryHeap<Integer>(items, true);
+	   if(resultatVoulu == heap.poll())
+		   System.out.print("\tSucces!\n");
+	   else
+		   System.out.print("\tEchec :(\n");
+   }
+   private static void testPollMax(Integer[] items) {
+	   System.out.print("Test pour : poll() quand min=false:\n");
+	   int resultatVoulu = items[1];
+	   boolean succes = true;
+	   for(int valeur : items) {
+		   if(valeur < items[1]) {
+			   succes = false;
+			   break;
+		   }
+	   }
+	   if(succes)
+		   System.out.print("\tSucces!\n");
+	   else
+		   System.out.print("\tEchec :(\n");
+   }
+   private static void testOfferIteratorNext(Integer[] items) {
+	   System.out.print("Test pour : next() dans Iterator:\n");
+	   BinaryHeap<Integer> heap = new BinaryHeap<Integer>(items, true);
+	   Iterator<Integer> it = heap.iterator();
+	   heap.offer(1);
+	   it.next();
+	   System.out.print("\tEchec :(\n");	   
+   }
+   private static void testIteratorOutOfBounds(Integer[] items) {
+	   System.out.print("Test pour : OutofBound dans Iterator:\n");
+	   BinaryHeap<Integer> heap = new BinaryHeap<Integer>(items, true);
+	   Iterator<Integer> it = heap.iterator();
+	   for(int i = 0; i <= items.length; i++) {
+		   it.next();
+	   }
+	   System.out.print("\tEchec :(\n");
    }
 }

@@ -21,13 +21,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public BinaryHeap( AnyType[] items, boolean min )
     {
 	this.min = min;
-	array = items;
-	currentSize = 0;
+	currentSize = items.length;
 	modifications = 0;
-	for(int i = 0; i < items.length; i++) {
-		if((int)items[i] != 0) {
-			currentSize++;
-		}
+	array = (AnyType[]) new Comparable[ currentSize + 1];
+	int i = 1;
+	for(AnyType it: items) {
+		array[i++] = it;
 	}
 	if(min == true) {
 		buildMinHeap();
@@ -75,6 +74,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     	
 		AnyType minItem = array[1];
 		array[ 1 ] = array[ currentSize-- ];
+		modifications++;
 		if(min = true) {
 			percolateDownMinHeap(1, currentSize);
 		} else {
@@ -214,23 +214,83 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSort( AnyType[] a )
     {
-	//COMPLETEZ
+    	for( int i = a.length / 2; i >= 0; i--) /* construire le monceau */
+    		percolateDownMaxHeap( a, i, a.length, true );
+		for( int i = a.length -1; i > 0; i--){
+			swapReferences( a, 1, i );/* permuter le maximum (racine)
+										avec le dernière élément du monceau */
+			percolateDownMaxHeap( a, 1, i, true );
+		}
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSortReverse( AnyType[] a )
     {
-	//COMPLETEZ
+    	for( int i = a.length / 2; i >= 0; i--) /* construire le monceau */
+    		percolateDownMinHeap( a, i, a.length, true );
+		for( int i = a.length -1; i > 0; i--){
+			swapReferences( a, 1, i );/* permuter le maximum (racine)
+										avec le dernière élément du monceau */
+			percolateDownMinHeap( a, 1, i, true );
+		}
     }
     
     public String nonRecursivePrintFancyTree()
     {
-	String outputString = "";
-	
-	//COMPLETEZ
-
-	return outputString;
+    	int i = 1;
+    	if(array[i] == null) {
+    		return "Monceau vide\n";
+    	}
+	  
+    	String outputString = "";
+	  
+    	Stack<Integer> stackValeurs = new Stack<Integer>();
+    	Stack<String> stackEspaces = new Stack<String>();
+	  
+    	boolean leafToNode = false;
+    	stackValeurs.push(i);
+    	stackEspaces.push(outputString);
+    	
+    	while(!stackValeurs.empty()) {
+    		String espace = stackEspaces.peek();
+    		i = stackValeurs.peek();
+    		
+    		int gauche = leftChild(i, true);
+    		int droite = gauche + 1;
+    		
+    		if(leafToNode) {
+    			stackEspaces.pop();
+    			leafToNode = false;
+    		}
+    		outputString += espace + "|__";
+    		if(i <= currentSize) {
+    			boolean estUneFeuille = i > currentSize/2;
+    			
+    			outputString += array[i] + "\n";
+    			stackValeurs.pop();
+    			
+    			if(i % 2 == 0) {
+    				espace += "|  ";
+    			} else {
+    				espace += "  ";
+    			}
+    			stackEspaces.push(espace);
+    			
+    			if(!estUneFeuille) {
+        			stackValeurs.push(droite);
+        			stackValeurs.push(gauche);
+        		} else {
+        			stackEspaces.pop();
+        			leafToNode = true;
+        		}
+    		} else {
+    			outputString += "null\n";
+    			stackValeurs.pop();
+    		}
+    	}
+    	return outputString;
     }
+    
     
     public String printFancyTree()
     {
@@ -268,15 +328,29 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     private class HeapIterator implements Iterator {
-	
+    	private int mods = modifications;
+    	private int pos = 1;
+    	
 	public boolean hasNext() {
-	    //COMPLETEZ
+		boolean hasNext = true;
+	    if(pos >= currentSize) {
+	    	hasNext = false;
+	    }
+	    return hasNext;
 	}
 
 	public Object next() throws NoSuchElementException, 
 				    ConcurrentModificationException, 
 				    UnsupportedOperationException {
-	    //COMPLETEZ
+	    if(mods != modifications) {
+	    	throw new ConcurrentModificationException("Le heap a ete modifie pendant une iteration.\n");
+	    }
+	    if(!hasNext()) {
+	    	throw new NoSuchElementException("Il n'y a pas de prochain element.\n");
+	    }
+	    else {
+	    	return array[pos++];
+	    }
 	}
 	
 	public void remove() {
